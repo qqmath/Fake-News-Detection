@@ -25,14 +25,13 @@ def home():
 def predict():
     if request.method == 'POST':
         message = request.form['message']
-        temp = []
         data = message
-        review = re.sub('[^a-zA-Z]', ' ', data) 
+        review = re.sub('[^a-zA-Z]', ' ', data)
         review = review.lower()
         review = review.split()
         review = [stemmer.stem(word) for word in review if word not in set(stopwords.words('english'))]
         review = ' '.join(review)
-        temp.append(review)
+        temp = [review]
         vect = cv.transform(temp).toarray()
         my_prediction = clf.predict(vect)
     return render_template('result.html',prediction = my_prediction)
