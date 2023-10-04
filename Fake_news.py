@@ -13,7 +13,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
 
 # Using a count vectoriser to create the required bag of words
-cv = CountVectorizer(max_features=5000,ngram_range=(1,3)) 
+cv = CountVectorizer(max_features=5000,ngram_range=(1,3))
 #making .pkl file for count vectoriser for preprocessing the input text in our web app
 pickle.dump(cv, open('transform.pkl','wb'))
 
@@ -33,7 +33,11 @@ for i in range(0,len(fake_dataset)):
     review = re.sub('az-A-Z',' ',fake_dataset['text'][i])
     review = review.lower()
     review = review.split()
-    review = [ps.stem(word) for word in review if not word in stopwords.words('english')]
+    review = [
+        ps.stem(word)
+        for word in review
+        if word not in stopwords.words('english')
+    ]
     review = ' '.join(review)
     corpus.append(review)
 
@@ -55,7 +59,11 @@ for i in range(0,len(test_dataset)):
     review = re.sub('az-A-Z',' ',test_dataset['text'][i])
     review = review.lower()
     review = review.split()
-    review = [ps.stem(word) for word in review if not word in stopwords.words('english')]
+    review = [
+        ps.stem(word)
+        for word in review
+        if word not in stopwords.words('english')
+    ]
     review = ' '.join(review)
     corpus.append(review)
 
